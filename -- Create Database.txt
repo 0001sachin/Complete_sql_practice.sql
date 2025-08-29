@@ -1,0 +1,116 @@
+-- Create Database
+CREATE DATABASE PracticeDB;
+GO
+USE PracticeDB;
+GO
+
+-----------------------------
+-- 1. Departments Table
+-----------------------------
+CREATE TABLE Departments (
+    DepartmentID INT PRIMARY KEY,
+    DepartmentName VARCHAR(50),
+    Location VARCHAR(50)
+);
+
+INSERT INTO Departments (DepartmentID, DepartmentName, Location) VALUES
+(1, 'IT', 'Delhi'),
+(2, 'HR', 'Mumbai'),
+(3, 'Finance', 'Bangalore'),
+(4, 'Marketing', 'Chennai'),
+(5, 'Operations', 'Hyderabad');
+
+-----------------------------
+-- 2. Employees Table
+-----------------------------
+CREATE TABLE Employees (
+    EmployeeID INT PRIMARY KEY,
+    FirstName VARCHAR(50),
+    LastName VARCHAR(50),
+    DepartmentID INT,
+    Salary INT,
+    HireDate DATE,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+INSERT INTO Employees (EmployeeID, FirstName, LastName, DepartmentID, Salary, HireDate) VALUES
+(1, 'Amit', 'Sharma', 1, 60000, '2019-05-12'),
+(2, 'Priya', 'Singh', 2, 45000, '2020-01-20'),
+(3, 'Ravi', 'Kumar', 1, 70000, '2018-07-15'),
+(4, 'Neha', 'Verma', 3, 55000, '2021-03-18'),
+(5, 'Suresh', 'Patel', 2, 50000, '2017-11-10'),
+(6, 'Anita', 'Joshi', 4, 40000, '2022-02-25'),
+(7, 'Vikas', 'Yadav', 3, 80000, '2016-09-05'),
+(8, 'Meena', 'Chopra', 5, 75000, '2019-12-30'),
+(9, 'Rajesh', 'Gupta', 4, 65000, '2021-06-10'),
+(10, 'Kavita', 'Rao', 2, 47000, '2020-08-22');
+
+-----------------------------
+-- 3. Projects Table
+-----------------------------
+CREATE TABLE Projects (
+    ProjectID INT PRIMARY KEY,
+    ProjectName VARCHAR(100),
+    DepartmentID INT,
+    Budget INT,
+    FOREIGN KEY (DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+INSERT INTO Projects (ProjectID, ProjectName, DepartmentID, Budget) VALUES
+(101, 'ERP System', 1, 1200000),
+(102, 'Recruitment Drive', 2, 300000),
+(103, 'Audit 2024', 3, 500000),
+(104, 'Ad Campaign', 4, 700000),
+(105, 'Logistics Upgrade', 5, 800000),
+(106, 'AI Research', 1, 2000000),
+(107, 'Payroll Automation', 2, 250000),
+(108, 'Investment Strategy', 3, 900000);
+
+-----------------------------
+-- 4. EmployeeProjects Table
+-----------------------------
+CREATE TABLE EmployeeProjects (
+    EPID INT PRIMARY KEY,
+    EmployeeID INT,
+    ProjectID INT,
+    Role VARCHAR(50),
+    HoursWorked INT,
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID),
+    FOREIGN KEY (ProjectID) REFERENCES Projects(ProjectID)
+);
+
+INSERT INTO EmployeeProjects (EPID, EmployeeID, ProjectID, Role, HoursWorked) VALUES
+(1, 1, 101, 'Developer', 120),
+(2, 2, 102, 'Coordinator', 80),
+(3, 3, 106, 'Lead Developer', 150),
+(4, 4, 103, 'Analyst', 90),
+(5, 5, 107, 'Recruiter', 60),
+(6, 6, 104, 'Marketing Exec', 100),
+(7, 7, 108, 'Finance Manager', 110),
+(8, 8, 105, 'Operations Head', 140),
+(9, 9, 101, 'Tester', 70),
+(10, 10, 102, 'HR Assistant', 50);
+
+-----------------------------
+-- 5. Salaries Table
+-----------------------------
+CREATE TABLE Salaries (
+    SalaryID INT PRIMARY KEY,
+    EmployeeID INT,
+    OldSalary INT,
+    NewSalary INT,
+    ChangeDate DATE,
+    FOREIGN KEY (EmployeeID) REFERENCES Employees(EmployeeID)
+);
+
+INSERT INTO Salaries (SalaryID, EmployeeID, OldSalary, NewSalary, ChangeDate) VALUES
+(1, 1, 55000, 60000, '2019-05-12'),
+(2, 2, 40000, 45000, '2020-01-20'),
+(3, 3, 65000, 70000, '2018-07-15'),
+(4, 4, 50000, 55000, '2021-03-18'),
+(5, 5, 45000, 50000, '2017-11-10'),
+(6, 6, 38000, 40000, '2022-02-25'),
+(7, 7, 75000, 80000, '2016-09-05'),
+(8, 8, 70000, 75000, '2019-12-30'),
+(9, 9, 60000, 65000, '2021-06-10'),
+(10, 10, 45000, 47000, '2020-08-22');
