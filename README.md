@@ -76,7 +76,7 @@ Ranking departments by average salary
 
 🛠️ How to Use
 
-Import or create the following sample tables in your SQL Server (or compatible DB):
+Import  the following create database in your SQL Server (or compatible DB):
 
 Employees
 
